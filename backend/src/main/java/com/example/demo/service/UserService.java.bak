@@ -12,26 +12,20 @@ public class UserService {
     private UserRepository userRepository;
 
     // 注册
-    public boolean register(User user) {
-       
-        //判断用户是否存在
+    public String register(User user) {
         if (userRepository.findByUsername(user.getUsername()) != null) {
-            return false;
+            return "用户已存在";
         }
-        
-        //保存用户
         userRepository.save(user);
-        return true;
+        return "注册成功";
     }
 
     // 登录
-    public User login(User user) {
+    public String login(User user) {
         User dbUser = userRepository.findByUsername(user.getUsername());
         if (dbUser != null && dbUser.getPassword().equals(user.getPassword())) {
-            
-            return dbUser;
+            return "登录成功";
         }
-        
-        return null;
+        return "用户名或密码错误";
     }
 }
