@@ -5,6 +5,7 @@
     <title>登录测试</title>
 </head>
 <body>
+
 <h2>登录</h2>
 
 <input id="username" placeholder="用户名"><br><br>
@@ -15,20 +16,50 @@
 <p id="result"></p>
 
 <script>
+
 function login() {
+
     fetch('/api/user/login', {
+
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
         body: JSON.stringify({
             username: document.getElementById('username').value,
             password: document.getElementById('password').value
         })
+
     })
-    .then(res => res.text())
+
+    .then(res => res.json())
+
     .then(data => {
-        document.getElementById('result').innerText = data;
+
+        console.log(data);
+
+        // 登录成功
+        if (data.code === 200) {
+
+            // 保存token
+            localStorage.setItem("token", data.data);
+
+            document.getElementById('result').innerText =
+                "登录成功";
+
+        } else {
+
+            document.getElementById('result').innerText =
+                data.msg;
+        }
+
     });
+
 }
+
 </script>
+
 </body>
 </html>

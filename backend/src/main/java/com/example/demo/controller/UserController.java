@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.common.Result;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.JwtUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,10 @@ public class UserController {
         User loginUser = userService.login(user);
 
         if (loginUser != null) {
-            return Result.success(loginUser);
+            
+            String token = JwtUtils.createToken(loginUser.getUsername());
+            
+            return Result.success(token);
         }
 
         return Result.fail("用户名或密码错误");
