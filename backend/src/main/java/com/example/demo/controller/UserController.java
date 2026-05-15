@@ -43,4 +43,11 @@ public class UserController {
 
         return Result.fail("用户名或密码错误");
     }
+    
+    //List
+    @GetMapping("/list")
+    public Result<?> list() {
+    
+        return Result.success(userService.list());
+    }
 }

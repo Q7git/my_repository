@@ -15,6 +15,12 @@
 
 <p id="result"></p>
 
+<br><br>
+
+<button onclick="getUserList()">获取用户列表</button>
+
+<pre id="list"></pre>
+
 <script>
 
 function login() {
@@ -54,6 +60,33 @@ function login() {
             document.getElementById('result').innerText =
                 data.msg;
         }
+
+    });
+
+}
+
+function getUserList() {
+
+    fetch('/api/user/list', {
+
+        method: 'GET',
+
+        headers: {
+
+            // 携带token
+            'Authorization': localStorage.getItem("token")
+        }
+
+    })
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        console.log(data);
+
+        document.getElementById('list').innerText =
+            JSON.stringify(data, null, 2);
 
     });
 

@@ -1,6 +1,6 @@
 package com.example.demo.common;
 
-public class Result<T> {
+public class Result<T> {    //泛型降低类的藕合性，高内聚低耦合
 
     private Integer code;
 
