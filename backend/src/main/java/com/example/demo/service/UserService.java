@@ -15,12 +15,10 @@ public class UserService {
     // 注册
     public boolean register(User user) {
        
-        //判断用户是否存在
         if (userRepository.findByUsername(user.getUsername()) != null) {
             return false;
         }
         
-        //保存用户
         userRepository.save(user);
         return true;
     }

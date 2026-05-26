@@ -13,10 +13,8 @@ public class JwtInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) throws Exception {
 
-        // 获取请求头中的 token
         String token = request.getHeader("Authorization");
 
-        // 判断 token 是否为空
         if (token == null || token.isEmpty()) {
 
             response.setStatus(401);
@@ -28,7 +26,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         try {
 
-            // 验证 token
             JwtUtils.verifyToken(token);
 
             return true;
